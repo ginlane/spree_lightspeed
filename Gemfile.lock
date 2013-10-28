@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     spree_lightspeed (0.0.1)
+      lightspeed_engine
       rails (~> 4.0.0)
 
 GEM
@@ -34,16 +35,36 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     builder (3.1.4)
+    cancan (1.6.10)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    haml (4.0.3)
+      tilt
     hike (1.2.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.5)
+    jquery-rails (3.0.4)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
+    json (1.8.1)
+    lightspeed (0.0.8)
+      httparty
+    lightspeed_engine (0.0.1)
+      cancan
+      haml
+      jquery-rails
+      lightspeed (~> 0.0.7)
+      rails (~> 4.0.0)
+      zurb-foundation
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
+    multi_xml (0.5.5)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -73,6 +94,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    sass (3.2.12)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -91,6 +113,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
+    zurb-foundation (4.3.2)
+      sass (>= 3.2.0)
 
 PLATFORMS
   ruby

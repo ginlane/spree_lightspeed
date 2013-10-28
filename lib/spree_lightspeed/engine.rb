@@ -1,3 +1,5 @@
+require 'lightspeed_engine'
+
 module SpreeLightspeed
   class Engine < ::Rails::Engine
     isolate_namespace SpreeLightspeed
