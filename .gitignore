@@ -1,6 +1,9 @@
 *.rbc
 *.sassc
 **/*.log
+
+config/lightspeed.yml
+
 .sass-cache
 capybara-*.html
 .rspec
