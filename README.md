@@ -16,4 +16,4 @@ Then proceed to mount the engines in ```config/routes.rb```:
   mount LightspeedEngine::Engine, :at => '/admin/'
 ```
 
-Extension migrations to not need to manually added. They will be injected into the host app's migration path at loadtime.
+Extension migrations do not need to be manually added. They will be injected into the host app's migration path at loadtime.
