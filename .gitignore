@@ -1,6 +1,7 @@
 *.rbc
 *.sassc
 **/*.log
+**/*.swp
 
 config/lightspeed.yml
 
