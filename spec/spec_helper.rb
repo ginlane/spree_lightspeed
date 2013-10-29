@@ -2,13 +2,10 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-#require 'combustion'
-#Combustion.initialize! :action_controller, :action_view#, :sprockets
-
 require 'rspec/rails'
 #require 'capybara/rails'
 #require 'capybara/rspec'
-#require 'vcr_setup'
+require 'vcr_setup'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
@@ -16,9 +13,9 @@ ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 # in spec/support/ and its subdirectories.
 Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
 
-RSpec.configure do |config|
-  #config.use_transactional_fixtures = true
+Lightspeed::Client.config_from_yaml 'config/lightspeed.yml', :test
 
-  #config.include Capybara::DSL, :type => :request
+RSpec.configure do |config|
+  config.include RspecEnv
 end
 
