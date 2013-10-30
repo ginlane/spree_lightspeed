@@ -5,6 +5,7 @@
 
 config/lightspeed.yml
 spec/dummy/db/*
+spec/dummy/tmp/*
 
 .sass-cache
 capybara-*.html
