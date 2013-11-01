@@ -6,6 +6,7 @@ require 'rspec/rails'
 #require 'capybara/rails'
 #require 'capybara/rspec'
 require 'vcr_setup'
+require 'database_cleaner'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
@@ -17,5 +18,18 @@ Lightspeed::Client.config_from_yaml 'config/lightspeed.yml', :test
 
 RSpec.configure do |config|
   config.include RspecEnv
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 

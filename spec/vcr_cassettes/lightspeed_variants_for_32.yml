@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sebbean:changeme1113@office.ginlane.com:9630/api/products/?filter=(master_model%20==%200)%20AND%20(code%20BEGINSWITH%5Bcd%5D%20%22HOL13-2X2RIB-06%22)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      Accept-Encoding:
+      - deflate, gzip
+      User-Agent:
+      - com.saturdaysnyc.saturdaysnyc/1.0
+      X-Pappid:
+      - 2731e680-6a17-4b65-95d0-ec2db95bddc0
+      Cookie:
+      - LS_SERVER_SESSION_ID=hVjYJB0_CGrYjpY0Kgtw3qhYsOtSRU1PVEVfU0VTU0lPTj0yZDg0Njk1MS1mZTE0LTQ4OGMtYTc4MS05NjcyNDBmNzc1NmM=;
+        Path=/; secure;
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml; charset=utf-8
+      Set-Cookie:
+      - LS_SERVER_SESSION_ID=hVjYJB0_CGrYjpY0Kgtw3qhYsOtSRU1PVEVfU0VTU0lPTj0yZDg0Njk1MS1mZTE0LTQ4OGMtYTc4MS05NjcyNDBmNzc1NmM=;
+        Path=/; secure;
+      Content-Length:
+      - '413'
+      Date:
+      - Tue, 05 Nov 2013 06:27:35 GMT
+      Server:
+      - LightSpeedServer/3.9.2  client_version/1906 rest_protocol/1.0.0
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?>
+        <products><product uri="https://office.ginlane.com:9630/api/products/34/" id="34" full_render="false"><code>HOL13-2X2RIB-06-Black-O/S</code><flags><inventoried>true</inventoried><editable_sell>false</editable_sell><master_model>false</master_model></flags><sell_price>50.000</sell_price><description>2x2 Rib BEANIES, Black, O/S</description><inventory><available>5.000</available><reserved>0.000</reserved><coming_for_stock>0</coming_for_stock><coming_for_customer>0</coming_for_customer><warehouses>0.000</warehouses><in_transit>0.000</in_transit><total>5.000</total></inventory><product_photos/></product><product uri="https://office.ginlane.com:9630/api/products/35/" id="35" full_render="false"><code>HOL13-2X2RIB-06-Olive Drab-O/S</code><flags><inventoried>true</inventoried><editable_sell>false</editable_sell><master_model>false</master_model></flags><sell_price>50.000</sell_price><description>2x2 Rib BEANIES, Olive Drab, O/S</description><inventory><available>0.000</available><reserved>0.000</reserved><coming_for_stock>0</coming_for_stock><coming_for_customer>0</coming_for_customer><warehouses>0.000</warehouses><in_transit>0.000</in_transit><total>0.000</total></inventory><product_photos/></product></products>
+    http_version: 
+  recorded_at: Tue, 05 Nov 2013 06:27:34 GMT
+recorded_with: VCR 2.7.0
