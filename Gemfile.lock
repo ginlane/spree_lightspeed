@@ -73,6 +73,8 @@ GEM
       rails (>= 3.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    factory_girl (3.6.2)
+      activesupport (>= 3.0.0)
     ffaker (1.20.0)
     haml (4.0.3)
       tilt
@@ -253,6 +255,7 @@ PLATFORMS
 
 DEPENDENCIES
   database_cleaner
+  factory_girl
   rspec-rails
   spree_lightspeed!
   sqlite3
