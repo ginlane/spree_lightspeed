@@ -5,6 +5,16 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
 #require 'capybara/rails'
 #require 'capybara/rspec'
+
+require 'factory_girl'
+require 'ffaker'
+require 'support/factory_setup'
+
+# Loading up select Spree::Core factories
+['shipping_category', 'tax_category', 'stock_location', 'country', 'state', 'product'].each do |model|
+  require "spree/testing_support/factories/#{model}_factory"
+end
+
 require 'vcr_setup'
 require 'database_cleaner'
 

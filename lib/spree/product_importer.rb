@@ -21,6 +21,25 @@ module Spree
       weight: :weight
     }
 
+    class << self
+      def new_records lightspeed_records
+        return lightspeed_records if Spree::Product.count == 0
+
+        delta = []
+        lightspeed_records.each do |ls_p|
+          next if Spree::Variant.find_by(lightspeed_product_id: ls_p.id)
+          delta << ls_p
+        end
+        delta
+      end
+
+      def import_delta!
+        new_records(Lightspeed::Product.master_records).each do |new_ls_p|
+          new(new_ls_p).perform
+        end
+      end
+    end
+
     def initialize ls_object, shipping_category = nil, taxonomy = nil
       self.spree_shipping_category = shipping_category || Spree::ShippingCategory.first
       self.spree_taxonomy = taxonomy || Spree::Taxonomy.first
