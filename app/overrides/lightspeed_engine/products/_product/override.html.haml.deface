@@ -1,0 +1,6 @@
+/
+  insert_bottom '.actions'
+- if p = pluck_spree_product(product.id)
+  = link_to p.sku, spree.admin_product_path(p)
+- else
+  (not imported)
