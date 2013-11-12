@@ -22,9 +22,8 @@ module Spree
         remote = Lightspeed::Product.all(filters: {master_model_eq: 1})
         remote_ids = remote.map(&:id)
 
-        local = Spree::Product.
-          includes(:variants_including_master).
-          where(:"spree_variants.lightspeed_product_id" => remote_ids)
+        local = Spree::Variant.
+          where(:lightspeed_product_id => remote_ids)
 
         @collection = []
         remote.each do |ls_product|
