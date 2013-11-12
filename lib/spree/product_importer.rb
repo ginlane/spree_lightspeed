@@ -89,7 +89,7 @@ module Spree
           option_type = self.send("spree_#{ot}_option")
           option_value = Spree::OptionValue.find_or_create_by(
             name: ls_variant.send(ot),
-            presentation: ls_variant.send(ot).titleize,
+            presentation: ls_variant.send(ot).to_s.titleize,
             option_type_id: option_type.id
           )
 
@@ -101,11 +101,13 @@ module Spree
     end
 
     def perform
-      prime_defaults
-      map_basic_attrs
-      map_taxonomy
-      ensure_option_types
-      recreate_variants
+      ActiveRecord::Base.transaction do
+        prime_defaults
+        map_basic_attrs
+        map_taxonomy
+        ensure_option_types
+        recreate_variants
+      end
     end
   end
 end
