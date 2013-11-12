@@ -1,0 +1,22 @@
+- content_for :page_title do
+  New Lightspeed products
+
+- content_for :page_actions do
+  %li#import_ls_products
+    = button_link_to 'Import LS Products', spree.lightspeed_import_all_admin_products_path, { :icon => 'icon-plus', :method => :post} 
+
+= render :partial => 'spree/admin/shared/product_sub_menu'
+
+%p
+  There is a total of #{@collection.size} new Lightspeed products.
+  - if @collection.size > 20
+    Only the first 20 are shown below.
+
+%table
+  %tr
+    %th SKU
+    %th Price
+    %th Actions
+  - @collection[0..19].each do |record|
+    =render 'lightspeed_engine/products/product', product: record
+

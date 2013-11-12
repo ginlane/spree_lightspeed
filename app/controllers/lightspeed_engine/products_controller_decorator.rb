@@ -14,7 +14,7 @@ module LightspeedEngine
 
       @spree_products = 
         Spree::Product.
-        joins(:variants).
+        joins(:variants_including_master).
         where(:"spree_variants.lightspeed_product_id" => ls_ids)
     end 
   

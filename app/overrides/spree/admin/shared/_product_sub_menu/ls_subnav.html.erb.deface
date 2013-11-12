@@ -1,0 +1,10 @@
+<!-- insert_bottom '#sub_nav' -->
+<li><%= link_to "Lightspeed Records", spree.new_lightspeed_products_admin_products_path, class: 'new-ls-records' -%></li>
+
+<%= javascript_tag do -%>
+  $.get( "<%= spree.new_lightspeed_products_admin_products_path -%>", function(data) {
+    if(data.length != 0){
+      $('.new-ls-records').html('Lightspeed Records (' + data.length + ')');
+    }
+  });
+<%- end -%>

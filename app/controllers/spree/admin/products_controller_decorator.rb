@@ -1,22 +1,42 @@
 module Spree
   module Admin
     ProductsController.class_eval do
+      before_filter :lightspeed_collection, :only => [:new_lightspeed_products, :lightspeed_import_all]
+
+      def lightspeed_import_all
+        Spree::ProductImporter.import_delta!
+        alert[:success] = "New Lightspeed Products imported."
+        redirect_to request.referer || spree.admin_products_path
+      end
+
+      def lightspeed_variants
+        p = Lightspeed::Product.find params[:id]
+        @collection = p.variants
+
+        respond_to do |format|
+          format.json { render :json => @collection }
+        end
+      end
+
       def lightspeed_collection
-        remote = Lightspeed::Product.all
+        remote = Lightspeed::Product.all(filters: {master_model_eq: 1})
         remote_ids = remote.map(&:id)
 
         local = Spree::Product.
-          includes(:variants).
+          includes(:variants_including_master).
           where(:"spree_variants.lightspeed_product_id" => remote_ids)
 
-        delta = []
+        @collection = []
         remote.each do |ls_product|
           next if local.select{|p| p.lightspeed_product_id == ls_product.id}.any?
-          delta << ls_product
+          @collection << ls_product
         end
+      end
 
+      def new_lightspeed_products
         respond_to do |format|
-          format.json { render :json => delta }
+          format.json { render :json => @collection }
+          format.html
         end
       end
     end
