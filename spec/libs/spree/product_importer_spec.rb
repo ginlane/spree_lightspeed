@@ -74,6 +74,7 @@ module Spree
         p.lightspeed_product_id.should == ls_p.id
         p.name.should == ls_p.description_copy
         p.width.should == ls_p.width
+        p.available_on.should_not be_nil
       end
 
       it 'should set up taxonomy relations' do
