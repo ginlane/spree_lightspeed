@@ -4,15 +4,20 @@ module Spree
   describe ProductImporter do
     let(:ls_ps){ ls_products }
     let(:ls_p){ ls_product(32) }
+    let(:ls_v){ ls_product(35) }
     let(:instance){ ProductImporter.new(ls_p) }
 
     before do
       Spree::ShippingCategory.find_or_create_by(name: 'Default')
-      Spree::Taxonomy.find_or_create_by(name: 'Default')
+      Spree::StockLocation.find_or_create_by(name: 'Default')
+
+      ls_v.
+        stub(:inventory).
+        and_return({:available => 3})
 
       ls_p.
         stub(:loaded_variants).
-        and_return( [ls_product(35)] ) 
+        and_return( [ls_v] ) 
 
       ls_p.
         stub(:category_name).
@@ -57,12 +62,13 @@ module Spree
     end
 
     context 'when modeling an existing LS record' do
+      let(:p){ instance.spree_product }
+
       before do
         instance.perform
       end
 
       it 'should copy basic attributes' do
-        p = instance.spree_product
         p.sku.should == ls_p.sku
         p.cost_price.should == ls_p.cost
         p.lightspeed_product_id.should == ls_p.id
@@ -71,24 +77,27 @@ module Spree
       end
 
       it 'should set up taxonomy relations' do
-        p = instance.spree_product
         t = p.taxons.first
         t.should be_present
         t.name.should == ls_p.category_name
+        t.taxonomy.name.should match(/Lightspeed Class/i)
       end
 
       it 'should set up option values' do
-        p = instance.spree_product
-        p.option_types.map(&:name).join.should match(/color/)
+        options = p.option_types.map(&:name).join
+        options.should match(/color/)
       end
 
       it 'should set up variants' do
-        p = instance.spree_product
         p.variants.size.should == 1
         v = p.variants.first
-        ls_v = ls_p.loaded_variants.first
         v.sku.should == ls_v.code
         v.option_values.map(&:name).join.should match(/#{ls_v.color}/)
+      end
+
+      it 'should set up stock levels' do
+        v = p.variants[0]
+        v.stock_items[0].count_on_hand.should == ls_v.inventory[:available]
       end
     end
   end

@@ -1,7 +1,8 @@
 module Spree
   class ProductImporter
-    attr_accessor :ls_product, :spree_product, :spree_color_option, :spree_size_option, :spree_shipping_category, :spree_taxonomy
+    attr_accessor :ls_product, :spree_product, :spree_color_option, :spree_size_option, :spree_shipping_category, :spree_stock_location
 
+    TAXONOMY_NAME = 'Lightspeed Class'
     OPTION_TYPES = [:size, :color]
     attr_accessor *OPTION_TYPES.map{|ot| "spree_#{ot}_option"}
 
@@ -40,17 +41,21 @@ module Spree
       end
     end
 
-    def initialize ls_object, shipping_category = nil, taxonomy = nil
+    def initialize ls_object, shipping_category = nil, stock_location = nil
       self.spree_shipping_category = shipping_category || Spree::ShippingCategory.first
-      self.spree_taxonomy = taxonomy || Spree::Taxonomy.first
+      self.spree_stock_location = stock_location || Spree::StockLocation.first
 
       self.spree_product = Spree::Product.new
       self.ls_product = ls_object
     end
 
+    def lightspeed_taxonomy
+      @lightspeed_taxonomy ||= Spree::Taxonomy.find_or_create_by(name: TAXONOMY_NAME)
+    end
+
     def prime_defaults
       raise "Please create a shipping category" unless spree_product.shipping_category ||= spree_shipping_category
-      raise "Please create a taxonomy" unless spree_taxonomy
+      raise "Please create a stock location" unless spree_stock_location
     end
 
     def map_basic_attrs
@@ -73,8 +78,21 @@ module Spree
       category = ls_product.category_name
       return unless category
 
-      taxon = Spree::Taxon.find_or_create_by name: category, taxonomy_id: spree_taxonomy.id
+      taxon = Spree::Taxon.find_or_create_by(
+        name: category,
+        taxonomy_id: lightspeed_taxonomy.id,
+        parent_id: lightspeed_taxonomy.root.id
+      )
+
       spree_product.taxons << taxon
+    end
+
+    def set_up_stock spree_variant, ls_variant
+      stock_movement = spree_stock_location.stock_movements.build(
+        quantity: ls_variant.inventory[:available]
+      )
+      stock_movement.stock_item = spree_stock_location.set_up_stock_item(spree_variant)
+      stock_movement.save
     end
 
     def recreate_variants
@@ -96,13 +114,14 @@ module Spree
           variant.option_values << option_value
         end
 
-        variant.save
+        variant.save && set_up_stock(variant, ls_variant)
       end
     end
 
     def perform
+      prime_defaults
+
       ActiveRecord::Base.transaction do
-        prime_defaults
         map_basic_attrs
         map_taxonomy
         ensure_option_types

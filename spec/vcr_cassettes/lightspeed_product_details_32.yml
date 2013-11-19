@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://sebbean:changeme1113@office.ginlane.com:9630/api/products/32/?count=50&order_by=id:desc
+    uri: https://sebbean:changeme1113@office.ginlane.com:9630/api/products/32/?order_by=id:desc
     body:
       encoding: US-ASCII
       string: ''
@@ -33,7 +33,7 @@ http_interactions:
       Content-Length:
       - '912'
       Date:
-      - Thu, 31 Oct 2013 22:02:52 GMT
+      - Tue, 19 Nov 2013 03:46:44 GMT
       Server:
       - LightSpeedServer/3.9.2  client_version/1906 rest_protocol/1.0.0
     body:
@@ -42,5 +42,5 @@ http_interactions:
         <?xml version='1.0' encoding='UTF-8'?>
         <product uri="https://office.ginlane.com:9630/api/products/32/" id="32" full_render="true"><class uri="https://office.ginlane.com:9630/api/classes/12/" id="12"/><currency uri="https://office.ginlane.com:9630/api/currencies/1/" id="1"/><code>HOL13-2X2RIB-06</code><costs><cost>9.940</cost><average>0.000</average><raw>9.940</raw></costs><flags><current>true</current><editable>true</editable><gift_card>false</gift_card><inventoried>true</inventoried><new_cost>false</new_cost><new_import>true</new_import><new_update>false</new_update><no_live_rules>false</no_live_rules><no_profit>false</no_profit><serialized>false</serialized><web>false</web><editable_sell>false</editable_sell><master_model>true</master_model></flags><sell_price>50.000</sell_price><pricing_levels/><created>2013-10-10T17:05:27.238316</created><modified>2013-10-10T17:05:27.238316</modified><description short="">2x2 Rib BEANIES</description><long_web_description></long_web_description><family>Saturdays</family><gl_product><asset></asset><cogs_expense></cogs_expense><income></income><payable_expense></payable_expense></gl_product><product_id>P-1031</product_id><import_id></import_id><inventory><available>0.000</available><reserved>0.000</reserved><coming_for_stock>0</coming_for_stock><coming_for_customer>0</coming_for_customer><warehouses>0.000</warehouses><in_transit>0.000</in_transit><total>0.000</total></inventory><margin>80.120</margin><minimum_margin>0.000</minimum_margin><notes></notes><product_info><color></color><height>0.000</height><length>0.000</length><size></size><weight>0.000</weight><width>0.000</width></product_info><reorder><amount>0.000</amount><calc>0.000</calc><point>0.000</point><type>0</type></reorder><sells><sell>50.000</sell><sell_tax_inclusive>0.000</sell_tax_inclusive><sell_web>0.000</sell_web></sells><supplier uri="https://office.ginlane.com:9630/api/suppliers/1/" id="1"/><supplier_code>HOL13-2X2RIB-06</supplier_code><upc></upc><web><colors/><inventory/><sizes/></web><keywords><keyword></keyword><keyword></keyword><keyword></keyword></keywords><multi_store_label>32</multi_store_label><multi_store_master_label/><categories><pos/><web/></categories><related_products/><serial_numbers/><product_photos/></product>
     http_version: 
-  recorded_at: Thu, 31 Oct 2013 22:02:52 GMT
-recorded_with: VCR 2.6.0
+  recorded_at: Tue, 19 Nov 2013 03:46:44 GMT
+recorded_with: VCR 2.7.0
