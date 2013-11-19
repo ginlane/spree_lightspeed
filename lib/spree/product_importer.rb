@@ -45,7 +45,7 @@ module Spree
       self.spree_shipping_category = shipping_category || Spree::ShippingCategory.first
       self.spree_stock_location = stock_location || Spree::StockLocation.first
 
-      self.spree_product = Spree::Product.new
+      self.spree_product = Spree::Product.new(available_on: Time.now)
       self.ls_product = ls_object
     end
 
