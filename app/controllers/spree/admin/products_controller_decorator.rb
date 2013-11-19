@@ -5,7 +5,7 @@ module Spree
 
       def lightspeed_import_all
         Spree::ProductImporter.import_delta!
-        alert[:success] = "New Lightspeed Products imported."
+        flash[:success] = "New Lightspeed Products imported."
         redirect_to request.referer || spree.admin_products_path
       end
 

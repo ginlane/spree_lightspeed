@@ -1,3 +1,4 @@
+require 'spree'
 require 'lightspeed_engine'
 
 module SpreeLightspeed
