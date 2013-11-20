@@ -18,6 +18,15 @@ end
 require 'vcr_setup'
 require 'database_cleaner'
 
+require 'spree/testing_support/authorization_helpers'
+require 'spree/testing_support/preferences'
+require 'spree/testing_support/controller_requests'
+require 'spree/testing_support/flash'
+require 'spree/testing_support/url_helpers'
+require 'spree/testing_support/order_walkthrough'
+
+require 'paperclip/matchers'
+
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -41,5 +50,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.include Spree::TestingSupport::Preferences
+  config.include Spree::TestingSupport::UrlHelpers
+  config.include Spree::TestingSupport::ControllerRequests
+  config.include Spree::TestingSupport::Flash
+
 end
 
