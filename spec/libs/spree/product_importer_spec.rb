@@ -50,7 +50,7 @@ module Spree
       context 'with pre-mapped records' do
         before do
           (10..12).each do |i|
-            FactoryGirl.create(:product, {lightspeed_product_id: i})
+            FactoryGirl.create(:product, {ls_id: i})
           end
         end
 
@@ -71,7 +71,7 @@ module Spree
       it 'should copy basic attributes' do
         p.sku.should == ls_p.sku
         p.cost_price.should == ls_p.cost
-        p.lightspeed_product_id.should == ls_p.id
+        p.ls_id.should == ls_p.id
         p.name.should == ls_p.description_copy
         p.width.should == ls_p.width
         p.available_on.should_not be_nil

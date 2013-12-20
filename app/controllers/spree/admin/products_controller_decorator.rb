@@ -23,11 +23,11 @@ module Spree
         remote_ids = remote.map(&:id)
 
         local = Spree::Variant.
-          where(:lightspeed_product_id => remote_ids)
+          where(:ls_id => remote_ids)
 
         @collection = []
         remote.each do |ls_product|
-          next if local.select{|p| p.lightspeed_product_id == ls_product.id}.any?
+          next if local.select{|p| p.ls_id == ls_product.id}.any?
           @collection << ls_product
         end
       end

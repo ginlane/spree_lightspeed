@@ -13,7 +13,7 @@ module Spree
 
     VARIANT_ATTR_MAP = {
       sell_price: :price,
-      id: :lightspeed_product_id,
+      id: :ls_id,
       cost: :cost_price,
       code: :sku,
       height: :height,
@@ -28,7 +28,7 @@ module Spree
 
         delta = []
         lightspeed_records.each do |ls_p|
-          next if Spree::Variant.find_by(lightspeed_product_id: ls_p.id)
+          next if Spree::Variant.find_by(ls_id: ls_p.id)
           delta << ls_p
         end
         delta
