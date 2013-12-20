@@ -19,5 +19,14 @@ module SpreeLightspeed
         require_dependency(c)
       end
     end
+
+    initializer "lightspeed.config" do |app|
+      path = "#{Rails.root}/config/lightspeed.yml"
+      if File.exists?(path)
+        Lightspeed::Client.config_from_yaml(path, Rails.env)
+      else
+        Rails.logger.error "Please configure Lightspeed via `config/lightspeed.yml`" 
+      end
+    end
   end
 end
