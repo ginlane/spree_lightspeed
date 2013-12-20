@@ -1,8 +1,6 @@
 require 'lightspeed'
-require 'spree/core'
 require 'spree/api'
 require 'spree/backend'
-require "spree/product_importer"
 
 module SpreeLightspeed
   class Engine < ::Rails::Engine
