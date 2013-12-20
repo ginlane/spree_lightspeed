@@ -11,6 +11,8 @@ Edit the end-app's Gemfile and ass these entries:
 
 Bundle with ```bundle``` in the project dir. 
 
+Install migrations with ```rake spree_lightspeed:install:migrations```.
+
 Then proceed to mount the engines in ```config/routes.rb```:
 ```ruby
   mount LightspeedEngine::Engine, :at => '/admin/'
