@@ -64,41 +64,58 @@ module Spree
     context 'when modeling an existing LS record' do
       let(:p){ instance.spree_product }
 
-      before do
-        instance.perform
+      context 'with extended info' do
+        before do
+          instance.perform
+        end
+
+        it 'should copy basic attributes' do
+          p.sku.should == ls_p.sku
+          p.cost_price.should == ls_p.cost
+          p.ls_id.should == ls_p.id
+          p.name.should == ls_p.description_copy
+          p.width.should == ls_p.width
+          p.available_on.should_not be_nil
+        end
+
+        it 'should set up taxonomy relations' do
+          t = p.taxons.first
+          t.should be_present
+          t.name.should == ls_p.category_name
+          t.taxonomy.name.should match(/Lightspeed Class/i)
+        end
+
+        it 'should set up option values' do
+          options = p.option_types.map(&:name).join
+          options.should match(/color/)
+        end
+
+        it 'should set up variants' do
+          p.variants.size.should == 1
+          v = p.variants.first
+          v.sku.should == ls_v.code
+          v.option_values.map(&:name).join.should match(/#{ls_v.color}/)
+        end
+
+        it 'should set up stock levels' do
+          v = p.variants[0]
+          v.stock_items[0].count_on_hand.should == ls_v.inventory[:available]
+        end
       end
 
-      it 'should copy basic attributes' do
-        p.sku.should == ls_p.sku
-        p.cost_price.should == ls_p.cost
-        p.ls_id.should == ls_p.id
-        p.name.should == ls_p.description_copy
-        p.width.should == ls_p.width
-        p.available_on.should_not be_nil
-      end
+      context 'with minimum info' do
+        before do
+          instance.extended = false
+          instance.perform
+        end
 
-      it 'should set up taxonomy relations' do
-        t = p.taxons.first
-        t.should be_present
-        t.name.should == ls_p.category_name
-        t.taxonomy.name.should match(/Lightspeed Class/i)
-      end
-
-      it 'should set up option values' do
-        options = p.option_types.map(&:name).join
-        options.should match(/color/)
-      end
-
-      it 'should set up variants' do
-        p.variants.size.should == 1
-        v = p.variants.first
-        v.sku.should == ls_v.code
-        v.option_values.map(&:name).join.should match(/#{ls_v.color}/)
-      end
-
-      it 'should set up stock levels' do
-        v = p.variants[0]
-        v.stock_items[0].count_on_hand.should == ls_v.inventory[:available]
+        it 'should copy basic attributes' do
+          p.sku.should == ls_p.sku
+          p.cost_price.should == ls_p.cost
+          p.ls_id.should == ls_p.id
+          p.name.should == ls_p.description_copy
+          p.available_on.should_not be_nil
+        end
       end
     end
   end

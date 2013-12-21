@@ -1,6 +1,6 @@
 module Spree
   class ProductImporter
-    attr_accessor :ls_product, :spree_product, :spree_color_option, :spree_size_option, :spree_shipping_category, :spree_stock_location
+    attr_accessor :ls_product, :spree_product, :spree_color_option, :spree_size_option, :spree_shipping_category, :spree_stock_location, :extended
 
     TAXONOMY_NAME = 'Lightspeed Class'
     OPTION_TYPES = [:size, :color]
@@ -47,6 +47,7 @@ module Spree
 
       self.spree_product = Spree::Product.new(available_on: Time.now)
       self.ls_product = ls_object
+      self.extended = true
     end
 
     def lightspeed_taxonomy
@@ -95,8 +96,16 @@ module Spree
       stock_movement.save
     end
 
+    def variants
+      if self.extended
+        ls_product.loaded_variants
+      else
+        ls_product.variants
+      end
+    end
+
     def recreate_variants
-      ls_product.loaded_variants.each do |ls_variant|
+      variants.each do |ls_variant|
         variant = spree_product.variants.build
 
         VARIANT_ATTR_MAP.each do |ls_field, spree_field|
