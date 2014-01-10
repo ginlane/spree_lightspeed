@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "spree"
   s.add_dependency 'lightspeed', '~> 0.2.0'
+  s.add_dependency 'spree_importer'
   s.add_dependency 'haml-rails'
 
   s.add_development_dependency "sqlite3"
