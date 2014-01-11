@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Spree
+module SpreeLightspeed
   describe ProductImporter do
     let(:ls_ps){ ls_products }
     let(:ls_p){ ls_product(32) }

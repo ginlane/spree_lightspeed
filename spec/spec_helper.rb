@@ -41,6 +41,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    FactoryGirl.create :shipping_category, name: "Default"
+    FactoryGirl.create :stock_location, name: "Default"
   end
 
   config.before(:each) do

@@ -26,5 +26,6 @@ module SpreeLightspeed
         Rails.logger.error "Please configure Lightspeed via `config/lightspeed.yml`" 
       end
     end
+
   end
 end

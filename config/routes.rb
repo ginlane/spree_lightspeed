@@ -1,7 +1,4 @@
-#SpreeLightspeed::Engine.routes.draw do
-#end
-
-Spree::Core::Engine.routes.draw do
+Spree::Core::Engine.add_routes do
   namespace :admin do
     resources :products do
       collection do
@@ -12,6 +9,13 @@ Spree::Core::Engine.routes.draw do
       member do
         post :lightspeed_import
         get :lightspeed_variants
+      end
+    end
+
+    resources :import_source_files do
+      member do
+        post :send_to_lightspeed
+        post :synchronize_stock
       end
     end
   end

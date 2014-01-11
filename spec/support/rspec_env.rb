@@ -20,4 +20,11 @@ module RspecEnv
       Lightspeed::Product.find(id, opts)
     end
   end
+
+  def ls_product_by_sku sku
+    Lightspeed::Product.all(
+      filters: {code_eq: sku}
+    )
+  end
+
 end

@@ -1,4 +1,4 @@
-module Spree
+module SpreeLightspeed
   class ProductImporter
     attr_accessor :ls_product, :spree_product, :spree_color_option, :spree_size_option, :spree_shipping_category, :spree_stock_location, :extended
 
@@ -7,20 +7,6 @@ module Spree
     attr_accessor *OPTION_TYPES.map{|ot| "spree_#{ot}_option"}
 
     # Keys represent Lightspeed fields, values hold the Spree semantic equivalents
-    PRODUCT_ATTR_MAP = {
-      description_copy: :name
-    }
-
-    VARIANT_ATTR_MAP = {
-      sell_price: :price,
-      id: :ls_id,
-      cost: :cost_price,
-      code: :sku,
-      height: :height,
-      length: :depth,
-      width: :width,
-      weight: :weight
-    }
 
     class << self
       def new_records lightspeed_records
@@ -59,8 +45,12 @@ module Spree
       raise "Please create a stock location" unless spree_stock_location
     end
 
+    def combined_attr_map
+      VARIANT_ATTR_MAP.merge PRODUCT_ATTR_MAP
+    end
+
     def map_basic_attrs
-      VARIANT_ATTR_MAP.merge(PRODUCT_ATTR_MAP).each do |ls_field, spree_field|
+      combined_attr_map.each do |ls_field, spree_field|
         spree_product.send("#{spree_field}=", ls_product.send(ls_field))
       end
 

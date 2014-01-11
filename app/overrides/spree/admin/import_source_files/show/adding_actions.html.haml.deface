@@ -1,0 +1,5 @@
+/ 
+  insert_before '#import_table'
+= content_for :page_actions do
+  = button_to "Send to Lightspeed", send_to_lightspeed_admin_import_source_file_path(@resource), method: :post unless @resource.imported_to_lightspeed?
+  = button_to "Sync Lightspeed stock levels", synchronize_stock_admin_import_source_file_path(@resource), method: :post
