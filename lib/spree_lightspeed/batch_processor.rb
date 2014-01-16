@@ -51,7 +51,7 @@ module SpreeLightspeed
       spree_record.update_attrbute(:ls_id, record.id)
     end
 
-    def send_to_coresense!
+    def send_to_lightspeed!
       prepare_new_records unless collection.present?
 
       collection.each do |record|

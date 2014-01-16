@@ -21,10 +21,10 @@ module SpreeLightspeed
       end
     end
 
-    describe 'on #send_to_coresense' do
+    describe 'on #send_to_lightspeed' do
       it 'exports and maps records' do
         ls_product_by_sku(@product.sku).should be_empty
-        bp.send_to_coresense!
+        bp.send_to_lightspeed!
         ls_product_by_sku(@product.sku).size.should == 1
         (@products + @variants).each do |record|
           record.reload
