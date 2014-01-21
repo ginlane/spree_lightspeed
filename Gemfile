@@ -13,3 +13,6 @@ gemspec
 # To use debugger
 # gem 'debugger'
 gem 'coffee-rails'
+gem 'spree', github: 'spree', branch: '2-1-stable'
+gem 'lightspeed', github: 'ginlane/lightspeed_gem', branch: 'master'
+gem 'spree_importer', github: 'ginlane/spree_importer', branch: 'master'

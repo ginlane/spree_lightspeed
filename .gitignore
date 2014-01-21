@@ -5,7 +5,7 @@
 
 config/lightspeed.yml
 spec/dummy/tmp/*
-spec/summy/db/*.sqlite3
+spec/dummy/db/*.sqlite3
 
 .sass-cache
 capybara-*.html
