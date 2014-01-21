@@ -4,8 +4,8 @@
 **/*.swp
 
 config/lightspeed.yml
-spec/dummy/db/*
 spec/dummy/tmp/*
+spec/summy/db/*.sqlite3
 
 .sass-cache
 capybara-*.html
