@@ -48,7 +48,7 @@ module SpreeLightspeed
 
     def link_to_spree_record record
       spree_record = Spree::Variant.find_by_sku record.code
-      spree_record.update_attrbute(:ls_id, record.id)
+      spree_record.update_attribute(:ls_id, record.id)
     end
 
     def send_to_lightspeed!
