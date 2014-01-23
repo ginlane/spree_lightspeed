@@ -5,6 +5,8 @@ module Spree
         if import_source_file.imported_to_lightspeed?
           flash[:error] = 'Batch already imported to LightSpeed'
         else
+          bp = SpreeLightspeed::BatchProcessor.new import_source_file.id, import_source_file.products
+          bp.send_to_lightspeed!
         end
         redirect_to :back
       end

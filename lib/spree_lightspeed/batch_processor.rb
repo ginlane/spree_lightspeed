@@ -12,7 +12,7 @@ module SpreeLightspeed
 
     def prepare_new_records
       products.each do |p|
-        if p.variants
+        if p.variants.any?
           self.ls_variants += new_ls_variants(p.variants)
         else
           self.ls_products << new_ls_product(p) if p.batch_id == batch_id
