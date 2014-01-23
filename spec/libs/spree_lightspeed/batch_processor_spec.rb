@@ -1,3 +1,4 @@
+require 'digest/sha1'
 require 'spec_helper' 
 
 module SpreeLightspeed
@@ -10,9 +11,11 @@ module SpreeLightspeed
       @import_source_file.import!
       # batch_id == 999
       @products = @import_source_file.products[0..1]
-      @product = @products[0]
+      @product = @products[1]
       @variants = @products.map{|p| p.variants }.flatten.select{|v| v.batch_id == 999}
       @variant = @product.variants[0]
+      @variant.sku = Digest::SHA1.hexdigest(Time.now.to_s)
+      @variant.save
     end
 
     describe 'on ::new' do
@@ -23,10 +26,11 @@ module SpreeLightspeed
 
     describe 'on #send_to_lightspeed' do
       it 'exports and maps records' do
-        ls_product_by_sku(@product.sku).should be_empty
+        ls_product_by_sku(@variant.sku).should be_empty
         bp.send_to_lightspeed!
-        ls_product_by_sku(@product.sku).size.should == 1
-        (@products + @variants).each do |record|
+        ls_product_by_sku(@variant.sku).size.should == 1
+
+        @variants.each do |record|
           record.reload
           record.ls_id.should be_present
         end
